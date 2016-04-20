@@ -14,6 +14,7 @@ using namespace p3d;
 using namespace std;
 
 double _gravity = 9.81;
+double _springForce = 10;
 
 /** Application des forces et des moments à chacune des obb
 - b->addForce(un Vector3 f) => ajoute la force f à la boite b (appliquée au centre de masse)
@@ -32,7 +33,14 @@ void EngineBox::computeForce() {
 
   }
 
-
+  //E3Q2
+  if(_cursorActive) {
+      Box* b = _boxList->selected();
+      if(b) {
+          Vector3 l = _cursor - b->attachWorld();
+          b->addForce(l * _springForce);
+      }
+  }
 }
 
 /** Gère la collision entre toutes les boites
@@ -109,18 +117,15 @@ void EngineBox::euler(double dt) {
     b->velocity(b->velocity()+dt*b->force()/b->mass());
 
     //E2Q2
-
-
-
     Vector3 old_omega = b->omega();
     Vector3 new_omega = old_omega + (b->moment() / b->inertia() * dt);
 
     double old_theta = b->theta();
     double new_theta = old_theta + old_omega.z() * dt;
 
-
     b->omega(new_omega);
     b->theta(new_theta);
+
 
     // à laisser en fin :
     b->resetForce();
