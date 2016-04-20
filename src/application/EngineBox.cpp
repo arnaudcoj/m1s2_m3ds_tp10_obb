@@ -107,8 +107,20 @@ void EngineBox::euler(double dt) {
     Box *b=_boxList->at(i);
     b->position(b->position()+dt*b->velocity());
     b->velocity(b->velocity()+dt*b->force()/b->mass());
-    // à compléter
 
+    //E2Q2
+
+
+
+    Vector3 old_omega = b->omega();
+    Vector3 new_omega = old_omega + (b->moment() / b->inertia() * dt);
+
+    double old_theta = b->theta();
+    double new_theta = old_theta + old_omega.z() * dt;
+
+
+    b->omega(new_omega);
+    b->theta(new_theta);
 
     // à laisser en fin :
     b->resetForce();
