@@ -13,6 +13,7 @@
 using namespace p3d;
 using namespace std;
 
+double _gravity = 9.81;
 
 /** Application des forces et des moments à chacune des obb
 - b->addForce(un Vector3 f) => ajoute la force f à la boite b (appliquée au centre de masse)
@@ -26,7 +27,8 @@ void EngineBox::computeForce() {
   for(unsigned int i=0; i<_boxList->size(); i++) {
     Box *b=_boxList->at(i);
 
-// A compléter
+    //E2Q1
+    b->addForce(Vector3(0., - b->mass() * _gravity, 0.));
 
   }
 
