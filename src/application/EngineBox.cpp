@@ -31,6 +31,9 @@ void EngineBox::computeForce() {
     //E2Q1
     b->addForce(Vector3(0., - b->mass() * _gravity, 0.));
 
+    //E3Q4
+    b->addForce(-1. * b->velocity());
+    b->addMoment(-2. * b->omega());
   }
 
   //E3Q2
