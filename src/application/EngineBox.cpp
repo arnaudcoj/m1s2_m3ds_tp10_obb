@@ -40,7 +40,7 @@ void EngineBox::computeForce() {
   if(_cursorActive) {
       Box* b = _boxList->selected();
       if(b) {
-          Vector3 l = _cursor - b->attachWorld()  * _springForce;
+          Vector3 l = (_cursor - b->attachWorld()) * _springForce;
           b->addForce(l);
           //E3Q3
           b->addMoment(l.cross(Vector3(_cursor, b->position())));
