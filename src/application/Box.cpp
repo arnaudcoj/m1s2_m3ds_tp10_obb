@@ -47,7 +47,14 @@ Vector3 Box::attachWorld() {
 **/
 void Box::project(const Vector3 &axe,double *mini,double *maxi) const {
   double kmin=0.0,kmax=0.0;
-  // A compléter : l'intervalle [kmin,kmax] doit correspondre à la projection de la boite sur l'axe
+
+  //E4Q1
+  kmin = kmax = vertex(0).dot(axe);
+
+  for(int i = 1; i < 4; i++) {
+      kmin = min(kmin, vertex(i).dot(axe));
+      kmax = max(kmax, vertex(i).dot(axe));
+  }
 
 
   *mini=kmin;

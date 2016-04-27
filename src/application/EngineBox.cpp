@@ -33,7 +33,7 @@ void EngineBox::computeForce() {
 
     //E3Q4
     b->addForce(-1. * b->velocity());
-    b->addMoment(-2. * b->omega());
+    b->addMoment(-1. * b->omega());
   }
 
   //E3Q2
