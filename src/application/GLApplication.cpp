@@ -50,9 +50,30 @@ GLApplication::GLApplication() {
   b->color(Vector3(0,1,0));
   _boxList.add(b);
 
+  //E4Q4
+/*
+  // Définition troisième boite
+  b=new Box();
+  b->dimension(4,4);
+  b->position(Vector3(-7,-7,0));
+  b->theta(0.25);
+  b->mass(2);
+  b->computeInertia();
+  b->color(Vector3(1,1,0));
+  _boxList.add(b);
+
+  // Définition quatrième boite
+  b=new Box();
+  b->dimension(1,7);
+  b->position(Vector3(2,7,0));
+  b->theta(0.);
+  b->mass(0.5);
+  b->computeInertia();
+  b->color(Vector3(0,0,1));
+  _boxList.add(b);
+*/
 
   _engineBox.boxList(&_boxList);
-
 }
 
 /// dtor
@@ -90,10 +111,22 @@ void GLApplication::initialize() {
   Texture *tex2=new Texture();
   tex2->read("Tranquil_Lagoon.jpg");
   tex2->filterLinear();
-
+  //E4Q4
+  /*
+  Texture *tex3=new Texture();
+  tex3->read("mosaic_pierre.jpg");
+  tex3->filterLinear();
+  Texture *tex4=new Texture();
+  tex4->read("Tyrol.jpg");
+  tex4->filterLinear();
+*/
   _boxList[0]->texture(tex1);
   _boxList[1]->texture(tex2);
-
+  //E4Q4
+  /*
+  _boxList[2]->texture(tex3);
+  _boxList[3]->texture(tex4);
+*/
 
 }
 

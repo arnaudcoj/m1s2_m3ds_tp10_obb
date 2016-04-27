@@ -130,15 +130,30 @@ bool Box::detectCollision(Box *b1,Box *b2,CollisionInfo *collision) {
 
   bool detect;
 
-  // A completer (1 seul axe pour l'instant => il faut tenir compte des 4 axes) :
-  // - déterminez la distance minimale dist_min de recouvrement entre les 4 axes axis[i] qui sont non séparateurs (Attention : minimale en valeur absolue !, mais dist_min est négative s'il y a recouvrement)
-  // - vous devez affecter correctement axe_min (l'axe correspondant à dist_min) qui est un des axis[i] *mais* en tenant compte du sens de séparation de
-  //   b2 par rapport à b1 (i.e. multiplier axis[i] par le signe (-1 ou 1) retourné par la méthode distance(b1,b2,...,)).
-  // - assurez vous d'avoir affecté correctement detect à la fin (==true il y a collision, == false pas de collision).
-
+  //E4Q3
   distance(b1,b2,axis[0],&dist,&direction);
-  if (dist<0) p3d::addDebug(b1->position(),b1->position()-direction*dist*axis[0],"",Vector3(0.2,0.2,1));
-  detect=false; // force une non détection (à enlever lorsque la détection est implémentée...).
+  dist_min = dist;
+  axe_min = axis[0] * direction;
+
+  detect = true;
+
+  for(int i = 1; i < 4; i++) {
+      distance(b1,b2,axis[i],&dist,&direction);
+
+      //S'il y a UN axe séparateur, il n'y a pas de collision => false
+      if(dist > 0.) {
+          detect = false;
+      } else if(abs(dist_min) > dist) {
+          dist_min = dist;
+          axe_min = axis[i] * direction;
+      }
+  }
+
+  //if (detect) {
+  //    p3d::addDebug(b1->position(),b1->position()-direction*dist*axis[0],"",Vector3(0.2,0.2,1));
+  //}
+
+  //detect=false; // force une non détection (à enlever lorsque la détection est implémentée...).
 
   // affecter les informations nécessaires à la réponse
   if (detect) {
