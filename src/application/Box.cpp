@@ -76,12 +76,27 @@ void Box::distance(Box *b1, Box *b2, const Vector3 &axe, double *distance, doubl
 
   drawDebugProject(b1,b2,axe,d1,f1,d2,f2);
 
-// A completer
-  // d1,f1 : intervalle de projection pour la boite b1
-  // d2,f2 : intervalle de projection pour la boite b2
-  // quelle est la distance de recouvrement ? (*distance = ??)
-  // affecter correctement *direction (-1 ou 1 ?)
+  //E4Q2
+  double w1,w2,c1,c2;
 
+  w1 = (f1 - d1);
+  w2 = (f2 - d2);
+  c1 = d1 + w1 / 2.;
+  c2= d2 + w2 / 2.;
+
+  if (d1 < d2) {
+      *distance = -(f1 - d2);
+  } else if (f1 < f2) {
+      *distance = -min(w1, w2);
+  } else {
+      *distance = -(f2 - d1);
+  }
+
+  if(c1 < c2) {
+      *direction = -1;
+  } else {
+      *direction = 1;
+  }
 
 }
 
