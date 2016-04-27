@@ -51,7 +51,6 @@ GLApplication::GLApplication() {
   _boxList.add(b);
 
   //E4Q4
-/*
   // Définition troisième boite
   b=new Box();
   b->dimension(4,4);
@@ -71,7 +70,6 @@ GLApplication::GLApplication() {
   b->computeInertia();
   b->color(Vector3(0,0,1));
   _boxList.add(b);
-*/
 
   _engineBox.boxList(&_boxList);
 }
@@ -112,21 +110,21 @@ void GLApplication::initialize() {
   tex2->read("Tranquil_Lagoon.jpg");
   tex2->filterLinear();
   //E4Q4
-  /*
+
   Texture *tex3=new Texture();
   tex3->read("mosaic_pierre.jpg");
   tex3->filterLinear();
   Texture *tex4=new Texture();
-  tex4->read("Tyrol.jpg");
+  tex4->read("univ_lille1pair.jpg");
   tex4->filterLinear();
-*/
+
   _boxList[0]->texture(tex1);
   _boxList[1]->texture(tex2);
   //E4Q4
-  /*
+
   _boxList[2]->texture(tex3);
   _boxList[3]->texture(tex4);
-*/
+
 
 }
 

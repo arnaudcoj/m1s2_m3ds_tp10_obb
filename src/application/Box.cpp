@@ -74,7 +74,7 @@ void Box::distance(Box *b1, Box *b2, const Vector3 &axe, double *distance, doubl
   b1->project(axe,&d1,&f1);
   b2->project(axe,&d2,&f2);
 
-  drawDebugProject(b1,b2,axe,d1,f1,d2,f2);
+  //drawDebugProject(b1,b2,axe,d1,f1,d2,f2);
 
   //E4Q2
   double w1,w2,c1,c2;
@@ -86,17 +86,19 @@ void Box::distance(Box *b1, Box *b2, const Vector3 &axe, double *distance, doubl
 
   if (d1 < d2) {
       *distance = -(f1 - d2);
+      *direction = 1;
   } else if (f1 < f2) {
       *distance = -min(w1, w2);
+      if(c1 < c2) {
+          *direction = 1;
+      } else {
+          *direction = -1;
+      }
   } else {
       *distance = -(f2 - d1);
+      *direction = -1;
   }
 
-  if(c1 < c2) {
-      *direction = -1;
-  } else {
-      *direction = 1;
-  }
 
 }
 
@@ -136,6 +138,9 @@ bool Box::detectCollision(Box *b1,Box *b2,CollisionInfo *collision) {
   axe_min = axis[0] * direction;
 
   detect = true;
+  if(dist > 0.) {
+      detect = false;
+  }
 
   for(int i = 1; i < 4; i++) {
       distance(b1,b2,axis[i],&dist,&direction);
@@ -143,7 +148,9 @@ bool Box::detectCollision(Box *b1,Box *b2,CollisionInfo *collision) {
       //S'il y a UN axe séparateur, il n'y a pas de collision => false
       if(dist > 0.) {
           detect = false;
-      } else if(abs(dist_min) > dist) {
+      }
+
+      if(abs(dist_min) >= abs(dist)) {
           dist_min = dist;
           axe_min = axis[i] * direction;
       }
